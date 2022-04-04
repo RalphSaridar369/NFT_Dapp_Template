@@ -1,5 +1,5 @@
 .App {
-  height: 100vh;
+  height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -93,4 +93,29 @@
 
 .App__Footer__Link{
   width: 50px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .App__Card{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .App__Card__Icon__Container{
+    margin-top: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 190%;
+  }
+
+  .App__Card__Container__Header{
+    margin-top: 20px;
+  }
+
+  .App__Card__Button{
+    margin-top: 20px;
+    width: 100%;
+  }
+
 }

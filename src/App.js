@@ -77,7 +77,7 @@ function App() {
           <img src={Example} className="App__Card__Image" />
         </div>
         <div className='App__Card__Container'>
-          <h1>Mint</h1>
+          <h1 className='App__Card__Container__Header'>Mint</h1>
           {(account && !error) ? <><div className='App__Card__Icon__Container'>
             <div className='App__Card__Icon'
               onClick={() => changeAmount("add")}>
@@ -93,7 +93,7 @@ function App() {
           </div>
             <div className='App__Card__Button'>
               <h3 style={{ color: '#fff' }}>Buy</h3>
-            </div></> : <h3 style={{ color: 'red' }}>{error || "Connect your wallet"}</h3>}
+            </div></> : <h3 style={{ color: 'red', marginLeft:'30px' }}>{error || "Connect your wallet"}</h3>}
         </div>
       </div>
       <div className='App__Footer'>
