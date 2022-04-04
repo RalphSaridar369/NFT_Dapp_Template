@@ -30,6 +30,57 @@
   height:90%;
 }
 
+.App__Card__Container{
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  flex:1;
+  flex-direction: column;
+}
+
+.App__Card__Icon__Container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 40px;
+  width: 40%;
+}
+
+.App__Card__Icon{
+  background-color: red;
+  padding:10px;
+  border-radius: 40px;
+}
+
+.App__Card__Icon:hover{
+  cursor: pointer;
+}
+
+.App__Card__Icon__Text{
+  color:#fff
+}
+
+.App__Card__Icon__Result{
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.App__Card__Button{
+  background-color: red;
+  padding:20px;
+  border-radius: 40px;
+  width: 20%;
+  text-align: center;
+}
+
+.App__Card__Button:hover{
+  cursor: pointer;
+}
+
 .App__Footer{
   display: flex;
   flex-direction: row;

@@ -10,6 +10,7 @@ export const config = {
     "NFT_NAME": "Emotions",
     "SYMBOL": "EMT",
     "MAX_SUPPLY": 25,
+    "MAX_MINT": 2,
     "WEI_COST": 2000000000000000,
     "DISPLAY_COST": 0.002,
     "GAS_LIMIT": 285000,
