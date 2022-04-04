@@ -28,6 +28,7 @@
 .App__Card__Image{
   width: 300px;
   height:90%;
+  border-radius: 20px;
 }
 
 .App__Card__Container{
@@ -43,7 +44,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-left: 40px;
   width: 40%;
 }
 
@@ -71,7 +71,7 @@
 
 .App__Card__Button{
   background-color: red;
-  padding:20px;
+  padding:10px 20px;
   border-radius: 40px;
   width: 20%;
   text-align: center;
