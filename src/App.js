@@ -9,11 +9,14 @@ import Telegram from './icons/telegram.png';
 import Instagram from './icons/instagram.png';
 
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Web3 from 'web3';
 
 function App() {
 
   const [amount, setAmount] = useState(0);
+  const [account, setAccount] = useState("");
+  const [error, setError] = useState("");
 
   const styles = {
     backgroundImage: "url('./config/images/bg.png')",
@@ -53,17 +56,29 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    const loadAccount = async () => {
+      const web3 = new Web3(Web3.givenProvider || 'http://localhost:7545');
+      const accounts = await web3.eth.requestAccounts();
+      setAccount(accounts[0]);
+      let netId = await web3.eth.net.getId()
+      setError(netId==137?"":"Make sure you are connected on Polygon")
+    }
+    loadAccount()
+  }, [])
+
   return (
     <div className="App" style={styles}>
       <h1 className='App__Header'>{config.NFT_NAME}</h1>
-      <h3 style={{marginBottom:'30px'}}>Price: {config.DISPLAY_COST} {config.NETWORK.SYMBOL}</h3>
+      <h3 style={{ marginBottom: '30px' }}>Price: {config.DISPLAY_COST} {config.NETWORK.SYMBOL}</h3>
+      <h3 style={{ marginBottom: '30px' }}>{!account ? "Not Connected" : `Connected on ${account}`}</h3>
       <div className='App__Card'>
         <div>
           <img src={Example} className="App__Card__Image" />
         </div>
         <div className='App__Card__Container'>
           <h1>Mint</h1>
-          <div className='App__Card__Icon__Container'>
+          {(account && !error) ? <><div className='App__Card__Icon__Container'>
             <div className='App__Card__Icon'
               onClick={() => changeAmount("add")}>
               <p className='App__Card__Icon__Text'>+</p>
@@ -76,9 +91,9 @@ function App() {
               <p className='App__Card__Icon__Text'>-</p>
             </div>
           </div>
-          <div className='App__Card__Button'>
-            <h3 style={{color:'#fff'}}>Buy</h3>
-          </div>
+            <div className='App__Card__Button'>
+              <h3 style={{ color: '#fff' }}>Buy</h3>
+            </div></> : <h3 style={{ color: 'red' }}>{error || "Connect your wallet"}</h3>}
         </div>
       </div>
       <div className='App__Footer'>
