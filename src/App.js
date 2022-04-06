@@ -56,7 +56,10 @@ function App() {
       alert("amount must be greater than zero");
     }
     else{
-      await contract.methods.mint(amount).send({from:account, value:Web3.utils.toWei((2*price).toString())})
+      let cost = Web3.utils.toWei((2*price).toString());
+      console.log(amount);
+      console.log(cost);
+      await contract.methods.mint(amount).send({from:account, value:cost});
     }
   }
 
