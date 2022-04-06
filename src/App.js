@@ -17,6 +17,7 @@ import { address } from './info/address';
 function App() {
 
   const [amount, setAmount] = useState(0);
+  const [name, setName] = useState("");
   const [maxSupply, setMaxSupply] = useState();
   const [contract, setContract] = useState();
   const [price, setPrice] = useState();
@@ -88,6 +89,9 @@ function App() {
       price = Web3.utils.fromWei(price, 'ether');
       setPrice(price);
       
+      let name = await Contract.methods.nameOv().call();
+      setName(name);
+      
       let maxAmount = await Contract.methods.maxSupply().call();
       setMaxSupply(maxAmount);
 
@@ -99,6 +103,7 @@ function App() {
 
   return (
     ready && <div className="App" style={styles}>
+      <h1 style={{ marginBottom: '30px' }}>{name}</h1>
       <h3 style={{ marginBottom: '30px' }}>Price: {config.DISPLAY_COST} {config.NETWORK.SYMBOL}</h3>
       <h3 style={{ marginBottom: '30px' }}>{!account ? "Not Connected" : `Connected`} <div className='App__connected__on'>on {account}</div></h3>
       <h3 style={{ marginBottom: '30px' }}>Max supply: {maxSupply}</h3>
