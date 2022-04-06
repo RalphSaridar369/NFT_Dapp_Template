@@ -132,7 +132,7 @@ function App() {
         </div>
       </div>
       <div className='App__Footer'>
-        {links.map((item, index) => config[item.name] && <a href={config[item.name]} key={index} className="App__Footer__Link__Container">
+        {links.map((item, index) => config[item.name] && <a href={config[item.name]} key={index} className="App__Footer__Link__Container" target="_blank">
           <img src={item.icon} className="App__Footer__Link" />
         </a>)}
       </div>
