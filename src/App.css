@@ -104,7 +104,6 @@
     height:100%!important;
     padding:30px 20px;
   }
-  
 
   .App__Card__Image{
     border-radius: 20px;
@@ -131,6 +130,14 @@
   .App__Card__Button{
     margin-top: 20px;
     width: 100%;
+  }
+
+}
+
+@media only screen and (max-width:650px){
+  
+  .App__connected__on{
+    display: none;    
   }
 
 }

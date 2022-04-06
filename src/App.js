@@ -9,14 +9,20 @@ import Telegram from './icons/telegram.png';
 import Instagram from './icons/instagram.png';
 
 import './App.css';
+import ABI from './info/ABI.json';
 import { useEffect, useState } from 'react';
 import Web3 from 'web3';
+import { address } from './info/address';
 
 function App() {
 
   const [amount, setAmount] = useState(0);
+  const [maxSupply, setMaxSupply] = useState();
+  const [contract, setContract] = useState();
+  const [price, setPrice] = useState();
   const [account, setAccount] = useState("");
   const [error, setError] = useState("");
+  const [ready, setReady] = useState(false);
 
   const styles = {
     backgroundImage: "url('./config/images/bg.png')",
@@ -45,6 +51,15 @@ function App() {
     },
   ]
 
+  const mint = async()=>{
+    if(amount==0){
+      alert("amount must be greater than zero");
+    }
+    else{
+      await contract.methods.mint(amount).send({from:account, value:Web3.utils.toWei((2*price).toString())})
+    }
+  }
+
   const changeAmount = (type) => {
     if (type == "add") {
       if (amount < config.MAX_MINT)
@@ -63,15 +78,27 @@ function App() {
       setAccount(accounts[0]);
       let netId = await web3.eth.net.getId()
       setError(netId==137?"":"Make sure you are connected on Polygon")
+
+      const Contract = new web3.eth.Contract(ABI,address);
+
+      let price = await Contract.methods.cost().call();
+      price = Web3.utils.fromWei(price, 'ether');
+      setPrice(price);
+      
+      let maxAmount = await Contract.methods.maxSupply().call();
+      setMaxSupply(maxAmount);
+
+      setContract(Contract);
+      setReady(true);
     }
     loadAccount()
   }, [])
 
   return (
-    <div className="App" style={styles}>
-      <h1 className='App__Header'>{config.NFT_NAME}</h1>
+    ready && <div className="App" style={styles}>
       <h3 style={{ marginBottom: '30px' }}>Price: {config.DISPLAY_COST} {config.NETWORK.SYMBOL}</h3>
-      <h3 style={{ marginBottom: '30px' }}>{!account ? "Not Connected" : `Connected on ${account}`}</h3>
+      <h3 style={{ marginBottom: '30px' }}>{!account ? "Not Connected" : `Connected`} <div className='App__connected__on'>on {account}</div></h3>
+      <h3 style={{ marginBottom: '30px' }}>Max supply: {maxSupply}</h3>
       <div className='App__Card'>
         <div>
           <img src={Example} className="App__Card__Image" />
@@ -91,7 +118,7 @@ function App() {
               <p className='App__Card__Icon__Text'>-</p>
             </div>
           </div>
-            <div className='App__Card__Button'>
+            <div className='App__Card__Button' onClick={()=>mint()}>
               <h3 style={{ color: '#fff' }}>Buy</h3>
             </div></> : <h3 style={{ color: 'red', marginLeft:'30px' }}>{error || "Connect your wallet"}</h3>}
         </div>
